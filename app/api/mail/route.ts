@@ -1,17 +1,16 @@
 import { render } from "@react-email/render";
-
-import WelcomeTemplate from "../../../emails";
-
+import WelcomeTemplate from "@/emails";
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
+import { env } from "@/env";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API_KEY);
 
 const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  url: env.UPSTASH_REDIS_REST_URL,
+  token: env.UPSTASH_REDIS_REST_TOKEN,
 });
 
 const ratelimit = new Ratelimit({
@@ -39,11 +38,11 @@ export async function POST(request: NextRequest, response: NextResponse) {
   const { email, firstname } = await request.json();
 
   const { data, error } = await resend.emails.send({
-    from: "Lakshay<hello@waitlist.lakshb.dev>",
+    from: "Aegis<mathewlewallen@cloudcontext.cc>",
     to: [email],
-    subject: "Thankyou for wailisting the Next.js + Notion CMS template!",
+    subject: "Thank you for joining the Aegis Waitlist!",
     reply_to: "lakshb.work@gmail.com",
-    html:  await render(WelcomeTemplate({ userFirstname: firstname })),
+    html: await render(WelcomeTemplate({ userFirstname: firstname })),
   });
 
   // const { data, error } = { data: true, error: null }

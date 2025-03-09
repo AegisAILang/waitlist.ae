@@ -1,13 +1,14 @@
 import { Client } from "@notionhq/client";
 import { NextResponse } from "next/server";
+import { env } from "@/env";  
 
 export async function POST(request: Request) {
   const body = await request.json();
   try {
-    const notion = new Client({ auth: process.env.NOTION_SECRET });
+    const notion = new Client({ auth: env.NOTION_SECRET });
     const response = await notion.pages.create({
       parent: {
-        database_id: `${process.env.NOTION_DB}`,
+        database_id: `${env.NOTION_DB}`,
       },
       properties: {
         Email: {

@@ -1,6 +1,7 @@
-<h1 align="center">Next.js + Notion — Wailtist Template</h1>
+<h1 align="center">Aegis Waitlist</h1>
 
 <p align="center">
+<body>This site was made with:</body>
 
 <img src ="https://img.shields.io/badge/Next.js-000000.svg?style=for-the-badge&logo=nextdotjs&logoColor=white">
 <img src ="https://img.shields.io/badge/Upstash-00E9A3.svg?style=for-the-badge&logo=Upstash&logoColor=white">
