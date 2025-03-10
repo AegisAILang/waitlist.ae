@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import { type ReactNode } from "react";
 
 const FigtreeFont = Figtree({ subsets: ['latin'] });
 
@@ -34,11 +35,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" className="dark">
       <meta property="og:image" content="/opengraph-image.png" />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1280" />

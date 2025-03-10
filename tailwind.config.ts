@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import fontFamily from "tailwindcss/defaultTheme";
+import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   darkMode: ['class', '.dark'],
@@ -7,6 +7,9 @@ const config: Config = {
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
+    './styles/**/*.css',
+    './emails/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   prefix: '',
   theme: {
@@ -83,7 +86,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;
 
 export default config;

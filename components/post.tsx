@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { trpc } from '@/trpc/trpc';
+import { api } from '@/trpc/react';
 import {
   useSuspenseQuery,
   useMutation,
@@ -10,13 +10,13 @@ import {
 export function LatestPost() {
   const queryClient = useQueryClient();
   const { data: latestPost } = useSuspenseQuery(
-    trpc.post.getLatest.queryOptions(),
+    api.post.getLatest.queryOptions(),
   );
   const [name, setName] = useState('');
   const createPost = useMutation(
-    trpc.post.create.mutationOptions({
+    api.post.create.mutationOptions({
       onSuccess: async () => {
-        await queryClient.invalidateQueries(trpc.post.pathFilter());
+        await queryClient.invalidateQueries(api.post.pathFilter());
         setName('');
       },
     }),
