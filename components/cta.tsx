@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import TextBlur from "@/components/ui/text-blur";
-import AnimatedShinyText from "@/components/ui/shimmer-text";
-import { containerVariants, itemVariants } from "@/lib/animation-variants";
+import { motion } from 'framer-motion';
+import TextBlur from '@/components/ui/text-blur';
+import AnimatedShinyText from '@/components/ui/shimmer-text';
+import { containerVariants, itemVariants } from '@/lib/animation-variants';
 
 export default function CTA() {
   return (
@@ -9,10 +9,11 @@ export default function CTA() {
       className="flex w-full max-w-2xl flex-col gap-2"
       variants={containerVariants}
       initial="hidden"
-      animate="visible">
+      animate="visible"
+    >
       <motion.div variants={itemVariants}>
         <div className="flex items-center justify-center">
-          <div className="flex w-fit items-center justify-center rounded-full bg-muted/80 text-center">
+          <div className="bg-muted/80 flex w-fit items-center justify-center rounded-full text-center">
             <AnimatedShinyText className="px-4 py-1">
               <span>Coming soon!</span>
             </AnimatedShinyText>

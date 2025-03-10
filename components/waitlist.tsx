@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { toast } from "sonner";
-import Link from "next/link";
-import { LatestPost } from "@/components/post";
-import CTA from "@/components/cta";
-import Form from "@/components/form";
-import Logos from "@/components/logos";
-import Particles from "@/components/ui/particles";
+import { useState } from 'react';
+import { toast } from 'sonner';
+import Link from 'next/link';
+import { LatestPost } from '@/components/post';
+import CTA from '@/components/cta';
+import Form from '@/components/form';
+import Logos from '@/components/logos';
+import Particles from '@/components/ui/particles';
 
 // Define the expected props
 interface WaitlistProps {
@@ -17,8 +17,8 @@ interface WaitlistProps {
 
 export default function Waitlist({ hello, session }: WaitlistProps) {
   // Form state
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
   // Event handlers for input changes
@@ -39,12 +39,12 @@ export default function Waitlist({ hello, session }: WaitlistProps) {
   // Handle form submission
   const handleSubmit = async () => {
     if (!name || !email) {
-      toast.error("Please fill in all fields 😠");
+      toast.error('Please fill in all fields 😠');
       return;
     }
 
     if (!isValidEmail(email)) {
-      toast.error("Please enter a valid email address 😠");
+      toast.error('Please enter a valid email address 😠');
       return;
     }
 
@@ -54,34 +54,34 @@ export default function Waitlist({ hello, session }: WaitlistProps) {
     const promise = new Promise(async (resolve, reject) => {
       try {
         // First, attempt to send the email
-        const mailResponse = await fetch("/api/mail", {
-          cache: "no-store",
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const mailResponse = await fetch('/api/mail', {
+          cache: 'no-store',
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ firstname: name, email }),
         });
 
         if (!mailResponse.ok) {
           if (mailResponse.status === 429) {
-            reject("Rate limited");
+            reject('Rate limited');
           } else {
-            reject("Email sending failed");
+            reject('Email sending failed');
           }
           return;
         }
 
         // If email sending is successful, insert data into Notion
-        const notionResponse = await fetch("/api/notion", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const notionResponse = await fetch('/api/notion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email }),
         });
 
         if (!notionResponse.ok) {
           if (notionResponse.status === 429) {
-            reject("Rate limited");
+            reject('Rate limited');
           } else {
-            reject("Notion insertion failed");
+            reject('Notion insertion failed');
           }
         } else {
           resolve({ name });
@@ -92,23 +92,24 @@ export default function Waitlist({ hello, session }: WaitlistProps) {
     });
 
     toast.promise(promise, {
-      loading: "Getting you on the waitlist... 🚀",
+      loading: 'Getting you on the waitlist... 🚀',
       success: (data) => {
-        setName("");
-        setEmail("");
-        return "Thank you for joining the waitlist 🎉";
+        setName('');
+        setEmail('');
+        return 'Thank you for joining the waitlist 🎉';
       },
       error: (error) => {
-        if (error === "Rate limited") {
+        if (error === 'Rate limited') {
           return "You're doing that too much. Please try again later";
-        } else if (error === "Email sending failed") {
-          return "Failed to send email. Please try again 😢.";
-        } else if (error === "Notion insertion failed") {
-          return "Failed to save your details. Please try again 😢.";
+        } else if (error === 'Email sending failed') {
+          return 'Failed to send email. Please try again 😢.';
+        } else if (error === 'Notion insertion failed') {
+          return 'Failed to save your details. Please try again 😢.';
         }
-        return "An error occurred. Please try again 😢.";
+        return 'An error occurred. Please try again 😢.';
       },
-    }).finally(() => {
+    });
+    Promise.resolve(promise).finally(() => {
       setLoading(false);
     });
   };
@@ -129,24 +130,24 @@ export default function Waitlist({ hello, session }: WaitlistProps) {
         quantityDesktop={350}
         quantityMobile={100}
         ease={80}
-        color={"#F7FF9B"}
+        color={'#F7FF9B'}
         refresh
       />
 
       {/* Example usage of additional dependencies */}
       <section className="mt-12 flex flex-col items-center gap-4">
         <p className="text-2xl text-white">
-          {hello ? hello.greeting : "Loading tRPC query..."}
+          {hello ? hello.greeting : 'Loading tRPC query...'}
         </p>
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl text-white">
             {session?.user && <span>Logged in as {session.user?.name}</span>}
           </p>
           <Link
-            href={session ? "/api/auth/signout" : "/api/auth/signin"}
+            href={session ? '/api/auth/signout' : '/api/auth/signin'}
             className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
           >
-            {session ? "Sign out" : "Sign in"}
+            {session ? 'Sign out' : 'Sign in'}
           </Link>
         </div>
         {session?.user && <LatestPost />}

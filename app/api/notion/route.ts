@@ -1,6 +1,6 @@
-import { Client } from "@notionhq/client";
-import { NextResponse } from "next/server";
-import { env } from "@/env";  
+import { Client } from '@notionhq/client';
+import { NextResponse } from 'next/server';
+import { env } from '@/env';
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -12,14 +12,14 @@ export async function POST(request: Request) {
       },
       properties: {
         Email: {
-          type: "email",
+          type: 'email',
           email: body?.email,
         },
         Name: {
-          type: "title",
+          type: 'title',
           title: [
             {
-              type: "text",
+              type: 'text',
               text: {
                 content: body?.name,
               },
@@ -30,11 +30,11 @@ export async function POST(request: Request) {
     });
 
     if (!response) {
-      throw new Error("Failed to add email to Notion");
+      throw new Error('Failed to add email to Notion');
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ success: false }, { status: 500 });
   }
 }

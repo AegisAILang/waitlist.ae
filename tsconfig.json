@@ -17,27 +17,28 @@
         "lib": ["dom", "dom.iterable", "ES2022"],
         "noEmit": true,
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "node",
         "jsx": "preserve",
         "plugins": [{ "name": "next" }],
         "incremental": true,
         /* Path Aliases */
-        "baseUrl": ".",
         "paths": {
           "@/*": ["./*"],
         },
-        "types": ["node"]
+        "types": ["node", "vitest/globals", "@trpc/tanstack-react-query"]
     },
   "include": [
     "next-env.d.ts",
-    "eslintrc.cjs",
+    "eslint.config.mjs",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
-, "next.config.mjs"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "*.js",
+    ".next/types/**/*.ts",
+    "playwright.config.ts",
+    "vitest.config.ts",
+    "next.config.ts"
+  ],
+  "exclude": ["node_modules"]
 }

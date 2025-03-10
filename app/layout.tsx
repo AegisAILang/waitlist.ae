@@ -1,32 +1,33 @@
-import "@/styles/globals.css";
-import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
-import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from "@vercel/analytics/react";
-import { TRPCReactProvider } from "@/trpc/react";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import '@/styles/globals.css';
+import type { Metadata } from 'next';
+import { Figtree } from 'next/font/google';
+import { Toaster } from '@/components/ui/sonner';
+import { Analytics } from '@vercel/analytics/react';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 
-const FigtreeFont = Figtree({ subsets: ["latin"] });
+const FigtreeFont = Figtree({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Aegis Waitlist",
-  description: "Join the exclusive Aegis waitlist and be the first to the programming language revolution.",
-  icons: [{
-      rel: "icon",
-      url: "/favicon.ico",
+  title: 'Aegis Waitlist',
+  description:
+    'Join the exclusive Aegis waitlist and be the first to the programming language revolution.',
+  icons: [
+    {
+      rel: 'icon',
+      url: '/favicon.ico',
     },
     {
-      rel: "apple-touch-icon",
-      url: "/apple-touch-icon.png",
+      rel: 'apple-touch-icon',
+      url: '/apple-touch-icon.png',
     },
     {
-      rel: "shortcut icon",
-      url: "/favicon-96x96.png",
+      rel: 'shortcut icon',
+      url: '/favicon-96x96.png',
     },
     {
-      rel: "manifest",
-      url: "/site.webmanifest",
+      rel: 'manifest',
+      url: '/site.webmanifest',
     },
   ],
 };
@@ -49,13 +50,11 @@ export default function RootLayout({
       <meta name="twitter:image:width" content="1280" />
       <meta name="twitter:image:height" content="832" />
       <body className={FigtreeFont.className}>
-        <TRPCReactProvider>
-          <Header />
-          {children}
-          <Toaster richColors position="top-center" />
-          <Analytics />
-          <Footer />
-        </TRPCReactProvider>
+        <Header />
+        {children}
+        <Toaster richColors position="top-center" />
+        <Analytics />
+        <Footer />
       </body>
     </html>
   );

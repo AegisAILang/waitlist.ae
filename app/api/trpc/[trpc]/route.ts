@@ -1,33 +1,29 @@
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import { type NextRequest } from "next/server";
-import { env } from "@/env";
-import type { appRouter } from "@/server/api/root";
-import { createTRPCContext } from "@/server/api/trpc";
-
 /**
- * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
- * handling a HTTP request (e.g. when you make requests from Client Components).
+ * This file contains tRPC's HTTP response handler
  */
-const createContext = async (req: NextRequest) => {
-  return createTRPCContext({
-    headers: req.headers,
-  });
-};
+import * as trpcNext from '@trpc/server/adapters/next';
+import { createContext } from '@/server1/api/context';
+import { appRouter } from '@/server1/api/root';
 
-const handler = (req: NextRequest) =>
-  fetchRequestHandler({
-    endpoint: "/api/trpc",
-    req,
-    router: appRouter,
-    createContext: () => createContext(req),
-    onError:
-      env.NODE_ENV === "development"
-        ? ({ path, error }) => {
-            console.error(
-              `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`
-            );
-          }
-        : undefined,
-  });
-
-export { handler as GET, handler as POST };
+export default trpcNext.createNextApiHandler({
+  router: appRouter,
+  /**
+   * @see https://trpc.io/docs/v11/context
+   */
+  createContext,
+  /**
+   * @see https://trpc.io/docs/v11/error-handling
+   */
+  onError({ error }) {
+    if (error.code === 'INTERNAL_SERVER_ERROR') {
+      // send to bug reporting
+      console.error('Something went wrong', error);
+    }
+  },
+  /**
+   * @see https://trpc.io/docs/v11/caching#api-response-caching
+   */
+  // responseMeta() {
+  //   // ...
+  // },
+});
